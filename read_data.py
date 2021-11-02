@@ -4,6 +4,7 @@ Read data from VRT and mosaiced GeoTIFF
 
 
 from pathlib import Path
+from random import randint
 import atexit
 import rasterio
 from rasterio.merge import merge
@@ -20,10 +21,27 @@ base_path = Path('data')
 vrt_path = base_path / 'test_vrt.vrt'
 mosaic_path = base_path / 'test_mosaic.tif'
 
-
+##################
 # define series of windows/points/etc to read
-#
+windows = []
 
+# TODO: grab the dimensions of the VRT itself and use that
+for i in range(100):
+    window_width = randint(1, 180)
+    window_height = randint(1, 90)
+
+    window_x = randint(-180, 180 - window_width)
+    window_y = randint(-90, 90 - window_height)
+
+    """
+    # bounds of this window
+    # left, bottom, right, top
+    window_bnds = (left, bottom, right, top)
+
+    windows.append(rasterio.windows.from_bounds(*window_bnds))
+    """
+
+#################
 
 # read data from VRT
 
