@@ -42,7 +42,7 @@ for i, (transform, dims) in enumerate(zip(transform_list, dims_list)):
         'width': dims[1],
         'transform': transform,
         'crs': 'epsg:4326',
-        'dtype': 'float32',
+        'dtype': 'float64',
         'count': 1,
         'nodata': 0
     }
