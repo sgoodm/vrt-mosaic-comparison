@@ -63,7 +63,7 @@ def gen_vrt(vrt_path, tile_list, warp=False):
     del my_vrt
 
 
-def gen_mosaic(bounds_list, tile_list):
+def gen_mosaic(mosaic_path, bounds_list, tile_list):
     """
     generate mosaiced geotiff
     """
@@ -83,7 +83,6 @@ def gen_mosaic(bounds_list, tile_list):
             "transform": out_transform,
         }
     )
-    mosaic_path = base_path / "test_mosaic.tif"
     with rasterio.open(str(mosaic_path), "w", **out_meta) as dst:
         dst.write(mosaic)
 
@@ -98,7 +97,8 @@ def generate_all(base_path, resolution, tile_sqrt):
     vrt_path = base_path / "test_vrt.vrt"
     gen_vrt(vrt_path, tile_list)
     # Generate mosaic
-    gen_mosaic(bounds_list, tile_list)
+    mosaic_path = base_path / "test_mosaic.tif"
+    gen_mosaic(mosaic_path, bounds_list, tile_list)
 
 
 if __name__ == "__main__":
