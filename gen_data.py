@@ -16,6 +16,9 @@ base_path = Path('data')
 tiles_path = base_path / 'tiles'
 tiles_path.mkdir(parents=True, exist_ok=True)
 
+# should we "warp" the VRT?
+warp = False
+
 # define individual tiles/scenes bounds/size/transform
 resolution = 0.5
 
@@ -65,7 +68,9 @@ for i, (transform, dims) in enumerate(zip(transform_list, dims_list)):
 # vrt_options = gdal.BuildVRTOptions(resampleAlg='cubic', addAlpha=False)
 vrt_path = base_path / 'test_vrt.vrt'
 my_vrt = gdal.BuildVRT(str(vrt_path), tile_list)#, options=vrt_options)
-my_vrt = None
+if warp == True:
+    gdal.Warp(str(vrt_path), my_vrt)
+del my_vrt
 
 
 # -------------------------------------
