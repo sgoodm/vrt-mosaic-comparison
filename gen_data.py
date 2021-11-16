@@ -18,13 +18,20 @@ tiles_path.mkdir(parents=True, exist_ok=True)
 
 # define individual tiles/scenes bounds/size/transform
 resolution = 0.5
+
+# define number of tiles (square this number)
+tile_sqrt = 2
+
+bounds_list = []
+for i in range(tile_sqrt):
+    xmin = i * (360 / tile_sqrt) - 180
+    xmax = (i + 1) * (360 / tile_sqrt) - 180
+    for j in range(tile_sqrt):
+        ymin = j * (180 / tile_sqrt) - 90
+        ymax = (j + 1) * (180 / tile_sqrt) - 90
+        bounds_list.append((xmin, ymin, xmax, ymax))
 # xmin, ymin, xmax, ymax
-bounds_list = [
-    (-180, 0, 0, 90),
-    (0, 0, 180, 90),
-    (-180, -90, 0, 0),
-    (0, -90, 180, 0),
-]
+
 transform_list = [ Affine(resolution, 0, i[0], 0, -resolution, i[3]) for i in bounds_list ]
 
 dims_list = [rasterio.transform.rowcol(transform_list[i], bounds_list[i][2], bounds_list[i][1]) for i in range(len(transform_list)) ]
