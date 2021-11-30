@@ -16,7 +16,6 @@ from vrt_read import read_vrt
 from mosaic_read import read_mosaic
 
 
-
 def gen_windows(transform, num_of_windows) -> list:
     """
     Generates a list of windows to read
@@ -25,7 +24,7 @@ def gen_windows(transform, num_of_windows) -> list:
 
     # TODO: grab the dimensions of the VRT itself and use that
 
-    for i in range(num_of_windows):
+    for _ in range(num_of_windows):
         window_width = randint(1, 180)
         window_height = randint(1, 90)
 
@@ -41,6 +40,7 @@ def gen_windows(transform, num_of_windows) -> list:
 
         windows.append(from_bounds(*window_bnds, transform))
     return windows
+
 
 def time_reads(num_of_windows, vrt_path, mosaic_path):
     # Start a profiler
@@ -61,7 +61,6 @@ def time_reads(num_of_windows, vrt_path, mosaic_path):
                 for window in gen_windows(vrt_transform, num_of_windows):
                     vrt_lp(vrt, window)
                     mosaic_lp(vrt, window)
-
 
     # extract timing information from LineProfiler
     lp_timings = lp.get_stats().timings

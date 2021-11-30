@@ -22,7 +22,7 @@ def gen_bounds_tiles(tiles_path, resolution, tile_sqrt) -> list:
     # xmin, ymin, xmax, ymax
 
     transform_list = [
-        Affine(resolution, 0, i[0], 0, -resolution, i[3]) for i in bounds_list
+        Affine(resolution, 0, b[0], 0, -resolution, b[3]) for b in bounds_list
     ]
     dims_list = [
         rasterio.transform.rowcol(
